@@ -45,10 +45,14 @@ fn main() {
         io::stdout()
             .flush()
             .expect("Error flushing stdout.");
+
         let mut guess = String::new();
+
         io::stdin()
             .read_line(&mut guess)
             .expect("Error reading line.");
     }
 
 }
+
+
