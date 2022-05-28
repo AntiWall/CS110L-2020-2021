@@ -33,26 +33,64 @@ fn main() {
     // vector than it is to pull them out of a string. You can get the ith character of
     // secret_word by doing secret_word_chars[i].
     let secret_word_chars: Vec<char> = secret_word.chars().collect();
-    let mut counter = 0;
-    let mut guess_counter = 0;
-    let word_length = secret_word_chars.len();
-    let mut show_line : String =  String::from("The word so far is ");
+    let mut counter: usize = 0;
+    let mut guess_counter = NUM_INCORRECT_GUESSES;
+    let word_length: usize = secret_word_chars.len();
 
-    while guess_counter < NUM_INCORRECT_GUESSES && counter < word_length {
+    let mut arr: [usize; 26] = [0; 26];
+    for i in 0..word_length {
+        arr[secret_word_chars[i] as usize - 'a' as usize] += 1;
+    }
+
+    let show_line: String = String::from("The word so far is ");
+    let mut already_guessed = String::from("");
+
+    let dash = '-';
+    let mut print_word = String::from("");
+    for _ in 0..word_length {
+        print_word.push(dash);
+    }
+    while guess_counter > 0 && counter < word_length {
         // println!("random word: {}", secret_word);
+        println!("{}, {}", show_line, print_word);
+        print!("You have guessed the following letters:");
+        println!("{}", already_guessed);
+        println!("You have {} guesses left", guess_counter);
         print!("Please guess a letter: ");
+
         // Make sure the prompt from the previous line gets displayed:
-        io::stdout()
-            .flush()
-            .expect("Error flushing stdout.");
+        io::stdout().flush().expect("Error flushing stdout.");
 
         let mut guess = String::new();
 
         io::stdin()
             .read_line(&mut guess)
             .expect("Error reading line.");
+
+        let ch = guess.chars().next().unwrap();
+        already_guessed.push(ch);
+
+        let index = ch as usize - 'a' as usize;
+        if arr[index] > 0 {
+            counter += arr[index];
+            arr[index] = 0;
+            for i in 0..word_length {
+                if secret_word_chars[i] == ch {
+                    print_word.replace_range(i..i + 1, &ch.to_string());
+                }
+            }
+        } else {
+            guess_counter -= 1;
+            println!("Sorry, that letter is not in the word");
+        }
+        println!("");
     }
-
+    if guess_counter == 0 {
+        println!("Sorry, you ran out of guesses!");
+    } else {
+        println!(
+            "Congratulations you guessed the secret word: {}!",
+            print_word
+        );
+    }
 }
-
-
