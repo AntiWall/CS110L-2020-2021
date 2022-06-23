@@ -1,5 +1,6 @@
 Example 1:
-```
+
+```rust
 fn main() {
     let mut s = String::from("hello");
     let ref1 = &s;
@@ -13,7 +14,9 @@ fn main() {
 
 
 Example 2:
-```
+s out of scope, cannot return borrow
+should return s instead
+```rust
 fn drip_drop() -> &String {
     let s = String::from("hello world!");
     return &s;
@@ -23,7 +26,10 @@ fn drip_drop() -> &String {
 
 
 Example 3:
-```
+s2 cannot take ownership of v[0]
+can be 
+let s2: &String = &v[0];
+```rust
 fn main() {
     let s1 = String::from("hello");
     let mut v = Vec::new();
