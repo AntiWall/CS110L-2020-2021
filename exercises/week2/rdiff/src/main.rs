@@ -26,28 +26,39 @@ fn lcs(seq1: &Vec<String>, seq2: &Vec<String>) -> Grid {
     // calls act like having asserts in C code, i.e. as guards against programming error.
     let m = seq1.len();
     let n = seq2.len();
-    let mut res = Grid::new(m + 1, n + 1);
+    let mut lcs_table = Grid::new(m + 1, n + 1);
     
     for i in 0..m {
         for j in 0..n {
             if seq1[i] == seq2[j] {
-                res.set(i + 1, j + 1, res.get(i, j).unwrap()+ 1).unwrap();
+                lcs_table.set(i + 1, j + 1, lcs_table.get(i, j).unwrap()+ 1).unwrap();
             } else {
-                res.set(i + 1, j + 1,
-                    cmp::max(res.get(i, j + 1).unwrap(), res.get(i + 1, j).unwrap())).unwrap();
+                lcs_table.set(i + 1, j + 1,
+                    cmp::max(lcs_table.get(i, j + 1).unwrap(), lcs_table.get(i + 1, j).unwrap())).unwrap();
             }
         }
     }
-    res
+    lcs_table
 }
 
-#[allow(unused)] // TODO: delete this line when you implement this function
 fn print_diff(lcs_table: &Grid, lines1: &Vec<String>, lines2: &Vec<String>, i: usize, j: usize) {
-    unimplemented!();
-    // Be sure to delete the #[allow(unused)] line above
+    if i > 0 && j > 0 && lines1[i - 1] == lines2[j - 1]{
+        print_diff(lcs_table, lines1, lines2, i - 1, j - 1);
+        println!(" {}", lines1[i - 1]);
+    } else if j > 0 && (i == 0 || 
+        lcs_table.get(i, j - 1).unwrap() >= lcs_table.get(i - 1, j).unwrap()){
+        print_diff(lcs_table, lines1, lines2, i, j - 1);
+        println!("> {}", lines2[j - 1]);
+    } else if i > 0 && (j == 0 || 
+        lcs_table.get(i, j - 1).unwrap() < lcs_table.get(i - 1, j).unwrap()){
+        print_diff(lcs_table, lines1, lines2, i - 1, j);
+        println!("< {}", lines1[i - 1]);
+    } else {
+        println!("");
+    }
 }
 
-#[allow(unused)] // TODO: delete this line when you implement this function
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() < 3 {
@@ -57,8 +68,12 @@ fn main() {
     let filename1 = &args[1];
     let filename2 = &args[2];
 
-    unimplemented!();
-    // Be sure to delete the #[allow(unused)] line above
+    let lines1 = read_file_lines(filename1).expect("filenames is invalid");
+    let lines2 = read_file_lines(filename2).expect("filenames is invalid");
+
+    let lcs_table = lcs(&lines1, &lines2);
+    
+    print_diff(&lcs_table, &lines1, &lines2, lines1.len(), lines2.len());
 }
 
 #[cfg(test)]
