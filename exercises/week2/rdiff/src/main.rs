@@ -10,7 +10,10 @@ pub mod grid;
 /// Reads the file at the supplied path, and returns a vector of strings.
 fn read_file_lines(filename: &String) -> Result<Vec<String>, io::Error> {
     let mut vec = Vec::new();
-    let file = File::open(filename)?;
+    let file = match File::open(filename) {
+        Ok(it) => it,
+        Err(err) => return Err(err),
+    };
     for line in io::BufReader::new(file).lines() {
         let line_str = line?;
         vec.push(line_str);
@@ -31,7 +34,10 @@ fn lcs(seq1: &Vec<String>, seq2: &Vec<String>) -> Grid {
     for i in 0..m {
         for j in 0..n {
             if seq1[i] == seq2[j] {
-                lcs_table.set(i + 1, j + 1, lcs_table.get(i, j).unwrap()+ 1).unwrap();
+                match lcs_table.set(i + 1, j + 1, lcs_table.get(i, j).unwrap()+ 1) {
+                    Ok(_it) => {},
+                    Err(err) => println!("{}", err),
+                };
             } else {
                 lcs_table.set(i + 1, j + 1,
                     cmp::max(lcs_table.get(i, j + 1).unwrap(), lcs_table.get(i + 1, j).unwrap())).unwrap();

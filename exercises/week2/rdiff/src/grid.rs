@@ -31,12 +31,18 @@ impl Grid {
     /// give you more practice with Option :) and because this similar library returns Option:
     /// https://docs.rs/array2d/0.2.1/array2d/struct.Array2D.html
     pub fn get(&self, row: usize, col: usize) -> Option<usize> {
+        if row * self.num_cols + col >= self.elems.len() {
+            return None;
+        }
         Some(self.elems[row * self.num_cols + col])
     }
 
     /// Sets the element at the specified location to the specified value. If the location is out
     /// of bounds, returns Err with an error message.
     pub fn set(&mut self, row: usize, col: usize, val: usize) -> Result<(), &'static str> {
+        if row * self.num_cols + col >= self.elems.len() {
+            return Err("Out of bounds");
+        }
         Ok(self.elems[row * self.num_cols + col] = val)
     }
 
