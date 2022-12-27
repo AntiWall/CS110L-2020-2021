@@ -1,14 +1,18 @@
-# CS110L
-This is course from Stanford University CS110L 
+# CS110L Safety in Systems Programming
+This is course from Stanford University CS110L, Safety in Systems Programming.
 
 
 # Course info
+## Prerequisite
+CS106A Programming Methodologies, CS106B Programming Abstractions, CS107 Computer Organization & Systems, CS110 Principles of Computer Systems
+
+UC Berkeley equivalencies: CS61A, CS61B, CS61C
+## Course link
 [2020 FALL](https://reberhardt.com/cs110l/spring-2020/)
 
 [2021 FALL](https://reberhardt.com/cs110l/spring-2021/)
 
-
-Course resources 
+## Course resources 
 |Category|Accessibility|
 |---|:-:|
 |Videos|✅|
