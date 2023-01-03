@@ -27,7 +27,7 @@ Most lecture videos are from 2020 FALL, few are from 2021 FALL
 |Labs link| Name| Progress|
 |---|---|:-:|
 |[Exercise 1 (2020 FALL)](https://reberhardt.com/cs110l/spring-2020/assignments/week-1-exercises/) |Hello world|✅|
-|[Exercise 1 (2021 FALL)](https://reberhardt.com/cs110l/spring-2021/assignments/week-1-exercises/) |C/C++ Exercise|⏳|
+|[Exercise 1 (2021 FALL)](https://reberhardt.com/cs110l/spring-2021/assignments/week-1-exercises/) |C/C++ Exercise|✅|
 |[Exercise 2 (2020 FALL)](https://reberhardt.com/cs110l/spring-2020/assignments/week-2-exercises/) |Ownership and structs|✅|
 |[Exercise 2 (2021 FALL)](https://reberhardt.com/cs110l/spring-2021/assignments/week-2-exercises/) |Hello world|⏳|
 |[Exercise 3 (2020 FALL)](https://reberhardt.com/cs110l/spring-2020/assignments/week-3-exercises/) |Error handling, I/O, and traits|⏳|

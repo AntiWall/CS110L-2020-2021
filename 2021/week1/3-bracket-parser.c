@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdint.h>
 
+
+
 void parse(const char* input) {
     // Goal: parse out a string between brackets
     // (e.g. "   [target string]" -> "target string")
@@ -31,6 +33,7 @@ void parse(const char* input) {
     char *close_bracket = strchr(parsed, ']');
     if (close_bracket == NULL) {
         printf("Malformed input!\n");
+        // free(mutable_copy);
         return;
     }
 
@@ -52,3 +55,15 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+
+// LLVM Fuzzer Test
+
+// int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
+//     // TODO: do something with `data` and `size`
+//     char buf[size + 1];
+//     memcpy(buf, data, size);
+//     buf[size] = '\0';
+//     parse(buf);
+//     // libFuzzer functions always return 0
+//     return 0;
+// }

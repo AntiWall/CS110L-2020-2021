@@ -1,16 +1,23 @@
 #include <iostream>
 #include <string>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
+
 int fib(int n) {
     int t1 = 0;
     int t2 = 1;
 
+    // should be i < n
     for (int i = 1; i <= n; i++) {
         int next = t1 + t2;
         t1 = t2;
         t2 = next;
     }
 
+    // if n == 0, should return 0
     return t2;
 }
 

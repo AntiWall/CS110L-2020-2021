@@ -8,7 +8,7 @@ struct Node {
 
 // Note: this may look like a constant based on naming convention, but without
 // `const`, it's actually declared as a global variable
-int kNumElements = 20;
+const int kNumElements = 20;
 
 struct Node* make_list() {
     // Make a list with one element
@@ -34,6 +34,7 @@ struct Node* make_list() {
 void swap_tenth_node(struct Node* list) {
     // Go to the 10th node
     struct Node* curr = list;
+    // should be i < 9
     for (int i = 0; i < 10; i++) {
         curr = curr->next;
     }
@@ -43,6 +44,14 @@ void swap_tenth_node(struct Node* list) {
     curr->next = malloc(sizeof(struct Node));
     curr->next->next = nextNext;
     curr->next->value = 100;
+
+    // right one
+    // struct Node* next = curr->next;
+    // struct Node* nextNext = curr->next->next;
+    // curr->next = malloc(sizeof(struct Node));
+    // curr->next->next = nextNext;
+    // curr->next->value = 100;
+    // free(next);
 }
 
 /**
@@ -57,6 +66,7 @@ int main() {
 
     /* Print and free everything */
     struct Node* curr = list;
+    // should be curr != NULL
     while (curr->next != NULL) {
         printf("%d\n", curr->value);
         struct Node* next = curr->next;  
