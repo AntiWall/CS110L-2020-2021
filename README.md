@@ -8,9 +8,11 @@ CS106A Programming Methodologies, CS106B Programming Abstractions, CS107 Compute
 
 UC Berkeley equivalencies: CS61A, CS61B, CS61C
 ## Course link
-[2020 FALL](https://reberhardt.com/cs110l/spring-2020/)
+[2020 Spring](https://reberhardt.com/cs110l/spring-2020/)
 
-[2021 FALL](https://reberhardt.com/cs110l/spring-2021/)
+[2021 Spring](https://reberhardt.com/cs110l/spring-2021/)
+
+[2022 Winter](https://web.stanford.edu/class/cs110l/)
 
 ## Course resources 
 |Category|Accessibility|
@@ -20,7 +22,7 @@ UC Berkeley equivalencies: CS61A, CS61B, CS61C
 |Projects|✅|
 
 ## Notice
-Most lecture videos are from 2020 FALL, few are from 2021 FALL
+Most lecture videos are from 2020 FALL, few are from 2021 FALL. The exercises came from 2020/2021/2022.
 
 # Structure
 ## Assignments
