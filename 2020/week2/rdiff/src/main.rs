@@ -1,23 +1,23 @@
 use grid::Grid; // For lcs()
+use std::cmp;
 use std::env;
 use std::fs::File; // For read_file_lines()
 use std::io::{self, BufRead}; // For read_file_lines()
 use std::process;
-use std::cmp;
 
 pub mod grid;
 
 /// Reads the file at the supplied path, and returns a vector of strings.
 fn read_file_lines(filename: &String) -> Result<Vec<String>, io::Error> {
     let mut vec = Vec::new();
-    let file = match File::open(filename) {
-        Ok(it) => it,
-        Err(err) => return Err(err),
-    };
+
+    let file = File::open(filename)?;
+
     for line in io::BufReader::new(file).lines() {
         let line_str = line?;
         vec.push(line_str);
     }
+
     Ok(vec)
 }
 
@@ -30,17 +30,25 @@ fn lcs(seq1: &Vec<String>, seq2: &Vec<String>) -> Grid {
     let m = seq1.len();
     let n = seq2.len();
     let mut lcs_table = Grid::new(m + 1, n + 1);
-    
+
     for i in 0..m {
         for j in 0..n {
             if seq1[i] == seq2[j] {
-                match lcs_table.set(i + 1, j + 1, lcs_table.get(i, j).unwrap()+ 1) {
-                    Ok(_it) => {},
+                match lcs_table.set(i + 1, j + 1, lcs_table.get(i, j).unwrap() + 1) {
+                    Ok(_it) => {}
                     Err(err) => println!("{}", err),
                 };
             } else {
-                lcs_table.set(i + 1, j + 1,
-                    cmp::max(lcs_table.get(i, j + 1).unwrap(), lcs_table.get(i + 1, j).unwrap())).unwrap();
+                lcs_table
+                    .set(
+                        i + 1,
+                        j + 1,
+                        cmp::max(
+                            lcs_table.get(i, j + 1).unwrap(),
+                            lcs_table.get(i + 1, j).unwrap(),
+                        ),
+                    )
+                    .unwrap();
             }
         }
     }
@@ -48,22 +56,23 @@ fn lcs(seq1: &Vec<String>, seq2: &Vec<String>) -> Grid {
 }
 
 fn print_diff(lcs_table: &Grid, lines1: &Vec<String>, lines2: &Vec<String>, i: usize, j: usize) {
-    if i > 0 && j > 0 && lines1[i - 1] == lines2[j - 1]{
+    if i > 0 && j > 0 && lines1[i - 1] == lines2[j - 1] {
         print_diff(lcs_table, lines1, lines2, i - 1, j - 1);
         println!(" {}", lines1[i - 1]);
-    } else if j > 0 && (i == 0 || 
-        lcs_table.get(i, j - 1).unwrap() >= lcs_table.get(i - 1, j).unwrap()){
+    } else if j > 0
+        && (i == 0 || lcs_table.get(i, j - 1).unwrap() >= lcs_table.get(i - 1, j).unwrap())
+    {
         print_diff(lcs_table, lines1, lines2, i, j - 1);
         println!("> {}", lines2[j - 1]);
-    } else if i > 0 && (j == 0 || 
-        lcs_table.get(i, j - 1).unwrap() < lcs_table.get(i - 1, j).unwrap()){
+    } else if i > 0
+        && (j == 0 || lcs_table.get(i, j - 1).unwrap() < lcs_table.get(i - 1, j).unwrap())
+    {
         print_diff(lcs_table, lines1, lines2, i - 1, j);
         println!("< {}", lines1[i - 1]);
     } else {
         println!("");
     }
 }
-
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -78,7 +87,7 @@ fn main() {
     let lines2 = read_file_lines(filename2).expect("filenames is invalid");
 
     let lcs_table = lcs(&lines1, &lines2);
-    
+
     print_diff(&lcs_table, &lines1, &lines2, lines1.len(), lines2.len());
 }
 

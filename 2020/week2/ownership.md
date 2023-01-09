@@ -10,25 +10,20 @@ fn main() {
     println!("{}", ref3.to_uppercase());
 }
 ```
-
-
+No, an attempt was made to assign to a borrowed value. ref3 borrow the ownership of s.
 
 Example 2:
-s out of scope, cannot return borrow
-should return s instead
 ```rust
 fn drip_drop() -> &String {
     let s = String::from("hello world!");
     return &s;
 }
 ```
-
+No, s out of scope, cannot return borrow
+should return s instead
 
 
 Example 3:
-s2 cannot take ownership of v[0]
-can be 
-let s2: &String = &v[0];
 ```rust
 fn main() {
     let s1 = String::from("hello");
@@ -37,4 +32,10 @@ fn main() {
     let s2: String = v[0];
     println!("{}", s2);
 }
+```
+No, s2 cannot take ownership of v[0] 
+
+Should be 
+```rust
+let s2: &String = &v[0];
 ```

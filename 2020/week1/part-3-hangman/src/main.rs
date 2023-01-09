@@ -72,7 +72,7 @@ fn main() {
 
         let ch = guess.chars().next().unwrap();
         already_guessed.push(ch);
-
+        
         let index = ch as usize - 'a' as usize;
         if map[index] > 0 {
             counter += map[index];

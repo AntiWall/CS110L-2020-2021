@@ -1,7 +1,7 @@
 use std::env;
 use std::fs::File;
-use std::process;
 use std::io::{self, BufRead};
+use std::process;
 
 fn read_file_lines(filename: &String) -> Result<Vec<String>, io::Error> {
     let mut vec = Vec::new();
@@ -35,11 +35,17 @@ fn main() {
         process::exit(1);
     }
     let filename = &args[1];
-    
+
     let lines = read_file_lines(filename).expect("filenames is invalid");
 
     if args.len() == 2 {
-        println!(" {}  {} {} {}", get_lines(&lines), get_words(&lines), get_bytes(filename), filename);
+        println!(
+            " {}  {} {} {}",
+            get_lines(&lines),
+            get_words(&lines),
+            get_bytes(filename),
+            filename
+        );
     } else {
         match args[2].as_str() {
             "-l" => {
@@ -60,8 +66,8 @@ fn main() {
 
 #[cfg(test)]
 mod test {
-    use std::process::Command;
     use super::*;
+    use assert_cmd;
 
     #[test]
     fn test_read_file_lines() {
@@ -69,18 +75,17 @@ mod test {
         assert!(lines_result.is_ok());
         let lines = lines_result.unwrap();
         assert_eq!(lines.len(), 3);
-        assert_eq!(
-            lines[0],
-            "sss"
-        );
+        assert_eq!(lines[0], "sss");
     }
 
     #[test]
-    fn test_wc() {
-        let output = Command::new("wc").arg("text").output().expect("failed run wc command!");
-        // assert_eq!(res.stdout, " 2  5 22 text\n");
-        let wc_res = String::from_utf8_lossy(&output.stdout);
-        println!("{}", wc_res);
-        // TODO get main result and compare
+    fn test_wc_output() {
+        let mut cmd = assert_cmd::Command::cargo_bin("rwc").unwrap();
+        let assert = cmd.arg("text").assert();
+        let wc_output = assert_cmd::Command::new("wc")
+            .arg("text")
+            .output()
+            .expect("failed run wc command!");
+        assert_eq!(wc_output, assert.get_output().to_owned());
     }
 }
