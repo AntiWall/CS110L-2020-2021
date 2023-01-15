@@ -1,5 +1,5 @@
 use crate::open_file::OpenFile;
-use std::fs::{self, read_dir};
+use std::fs::{read_dir};
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Process {

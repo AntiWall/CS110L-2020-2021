@@ -1,5 +1,7 @@
 use std::env;
 
+use ps_utils::get_child_processes;
+
 mod open_file;
 mod process;
 mod ps_utils;
@@ -20,8 +22,16 @@ fn main() {
             std::process::exit(1);
         },
         Some(process) => {
-            process.print();
+            recursive_print_all_children(&process);
         },
+    }
+}
+
+fn recursive_print_all_children(process: &process::Process) {
+    process.print();
+    let children = get_child_processes(process.pid).unwrap();
+    for child in children {
+        recursive_print_all_children(&child);
     }
 }
 
