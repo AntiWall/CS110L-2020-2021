@@ -31,7 +31,7 @@ Most lecture videos are from 2020 FALL, few are from 2021 FALL. The exercises mo
 |[Exercise 1 (2020 FALL)](https://reberhardt.com/cs110l/spring-2020/assignments/week-1-exercises/) |Hello world|✅|
 |[Exercise 1 (2021 FALL)](https://reberhardt.com/cs110l/spring-2021/assignments/week-1-exercises/) |C/C++ Exercise|✅|
 |[Exercise 2 (2020 FALL)](https://reberhardt.com/cs110l/spring-2020/assignments/week-2-exercises/) |Ownership and structs|✅|
-|[Exercise 3 (2020 FALL)](https://reberhardt.com/cs110l/spring-2020/assignments/week-3-exercises/) |Error handling, I/O, and traits|⏳|
+|[Exercise 3 (2020 FALL)](https://reberhardt.com/cs110l/spring-2020/assignments/week-3-exercises/) |Error handling, I/O, and traits|✅|
 |[Exercise 5 (2020 FALL)](https://reberhardt.com/cs110l/spring-2020/assignments/week-5-exercises/) |Farm meets multithreading|⏳|
 |[Exercise 6 (2020 FALL)](https://reberhardt.com/cs110l/spring-2020/assignments/week-6-exercises/) |Sharing Data by Communicating|⏳|
 
